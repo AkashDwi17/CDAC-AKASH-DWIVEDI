@@ -1,0 +1,264 @@
+import java.util.*;
+import java.math.BigInteger;
+
+// 1. ARRAYS
+// 1.1 Sort an Array
+int[] arr = {5, 2, 8, 1};
+Arrays.sort(arr); // [1, 2, 5, 8]
+System.out.println(Arrays.toString(arr));
+
+// 1.2 Binary Search
+int index = Arrays.binarySearch(arr, 5); // 2
+System.out.println(index);
+
+// 1.3 Fill Array
+Arrays.fill(arr, 3); // [3, 3, 3, 3]
+System.out.println(Arrays.toString(arr));
+
+// 1.4 Copy Array
+int[] copy = Arrays.copyOf(arr, 6); // [3,3,3,3,0,0]
+System.out.println(Arrays.toString(copy));
+
+// Using Integer.toString() / Double.toString() etc.
+int num = 123;
+String s1 = Integer.toString(num);
+
+double d = 45.67;
+String s2 = Double.toString(d);
+
+System.out.println(s1); // "123"
+System.out.println(s2); // "45.67"
+
+// 3. Using String Concatenation (+ "")
+int num = 123;
+String s = num + "";
+
+System.out.println(s); // "123"
+
+// 2. STRINGS
+// 2.1 Character at Position
+String s = "hello world";
+System.out.println(s.charAt(0)); // h
+
+// 2.2 Substring
+System.out.println(s.substring(0,5)); // hello
+
+// 2.3 Contains
+System.out.println(s.contains("world")); // true
+
+// 2.4 Replace
+System.out.println(s.replace("l","x")); // hexxo worxd
+
+// 🔹 String → int
+String s = "123";
+
+// Using Integer.parseInt()
+int num1 = Integer.parseInt(s);
+
+// Using Integer.valueOf() (returns Integer object, can auto-unbox)
+int num2 = Integer.valueOf(s);
+
+System.out.println(num1); // 123
+System.out.println(num2); // 123
+
+🔹 String → double
+String s = "123.45";
+
+double d1 = Double.parseDouble(s);
+double d2 = Double.valueOf(s);
+
+System.out.println(d1); // 123.45
+System.out.println(d2); // 123.45
+
+// 🔹 String → long
+String s = "123456789";
+
+long l1 = Long.parseLong(s);
+long l2 = Long.valueOf(s);
+
+System.out.println(l1); // 123456789
+System.out.println(l2); // 123456789
+
+🔹 String → float
+String s = "12.34";
+
+float f1 = Float.parseFloat(s);
+float f2 = Float.valueOf(s);
+
+System.out.println(f1); // 12.34
+System.out.println(f2); // 12.34
+
+🔹 String → BigInteger / BigDecimal (for very large numbers)
+import java.math.BigInteger;
+import java.math.BigDecimal;
+
+String s1 = "123456789012345678901234567890";
+BigInteger bigInt = new BigInteger(s1);
+
+String s2 = "12345.678901234567890";
+BigDecimal bigDec = new BigDecimal(s2);
+
+System.out.println(bigInt); // 123456789012345678901234567890
+System.out.println(bigDec); // 12345.678901234567890
+
+
+// 3. ARRAYLIST
+ArrayList<Integer> list = new ArrayList<>();
+// 3.1 Add
+list.add(5);
+list.add(10);
+// 3.2 Get
+System.out.println(list.get(1)); // 10
+// 3.3 Remove
+list.remove(0);
+System.out.println(list); // [10]
+
+// 4. HASHMAP
+HashMap<String,Integer> map = new HashMap<>();
+// 4.1 Put
+map.put("a", 10);
+map.putIfAbsent("b", 20);
+// 4.2 Get
+System.out.println(map.get("a")); // 10
+// 4.3 Merge
+map.merge("a", 5, Integer::sum); // 15
+System.out.println(map);
+
+// 5. STACK / QUEUE
+Stack<Integer> stack = new Stack<>();
+stack.push(100);
+System.out.println(stack.pop()); // 100
+
+Queue<Integer> queue = new LinkedList<>();
+queue.add(50);
+System.out.println(queue.poll()); // 50
+
+// 6. PRIORITYQUEUE
+PriorityQueue<Integer> pq = new PriorityQueue<>();
+pq.add(30);
+pq.add(10);
+pq.add(20);
+System.out.println(pq.poll()); // 10
+
+// 7. MATH / BIGINTEGER
+System.out.println(Math.max(10, 20)); // 20
+BigInteger big = new BigInteger("12345678901234567890");
+BigInteger result = big.add(BigInteger.valueOf(10));
+System.out.println(result);
+
+// 8. STREAMS
+List<Integer> nums = Arrays.asList(5,2,8,1);
+nums.stream().filter(x->x>2).forEach(System.out::println); // 5,8
+
+// 9. DFS TEMPLATE (Graph)
+int[][] graph = {{1,2},{0,3},{0,3},{1,2}};
+boolean[] visited = new boolean[4];
+dfs(0, graph, visited);
+
+static void dfs(int node, int[][] graph, boolean[] visited){
+    visited[node] = true;
+    System.out.println(node);
+    for(int neigh : graph[node]){
+        if(!visited[neigh]) dfs(neigh, graph, visited);
+    }
+}
+
+Conversions in Java
+1️⃣ Binary ↔ Decimal
+Binary → Decimal
+String binary = "1010"; // binary (10 in decimal)
+
+// Using Integer.parseInt()
+int decimal = Integer.parseInt(binary, 2);
+
+System.out.println(decimal); // 10
+
+Decimal → Binary
+int decimal = 10;
+
+// Using Integer.toBinaryString()
+String binary = Integer.toBinaryString(decimal);
+
+System.out.println(binary); // "1010"
+
+2️⃣ Decimal ↔ Hexadecimal
+Decimal → Hex
+int decimal = 255;
+
+String hex = Integer.toHexString(decimal);
+
+System.out.println(hex); // "ff"
+
+Hex → Decimal
+String hex = "ff";
+
+int decimal = Integer.parseInt(hex, 16);
+
+System.out.println(decimal); // 255
+
+3️⃣ Decimal ↔ Octal
+Decimal → Octal
+int decimal = 100;
+
+String octal = Integer.toOctalString(decimal);
+
+System.out.println(octal); // "144"
+
+Octal → Decimal
+String octal = "144";
+
+int decimal = Integer.parseInt(octal, 8);
+
+System.out.println(decimal); // 100
+
+// 4️⃣ Binary ↔ Hexadecimal
+
+Java doesn’t directly convert Binary ↔ Hex, but you can do it via Decimal.
+
+String binary = "1010";
+int decimal = Integer.parseInt(binary, 2);
+String hex = Integer.toHexString(decimal);
+
+System.out.println(hex); // "a"
+
+// 5️⃣ Using BigInteger for Very Large Numbers
+import java.math.BigInteger;
+
+String binary = "1101010101010101010101";
+BigInteger bigDecimal = new BigInteger(binary, 2);
+
+System.out.println(bigDecimal); // large decimal value
+
+
+
+
+// 4️⃣ Char ↔ Int (ASCII / Unicode)
+char c = 'A';
+int ascii = (int)c; // 65
+
+int code = 66;
+char ch = (char)code; // 'B'
+
+// 5️⃣ String ↔ Char / Char Array
+String s = "Hello";
+char[] arr = s.toCharArray();
+String back = new String(arr)
+
+
+LocalDateTime now = LocalDateTime.now();
+
+// To String
+String s = now.toString();
+
+// From String
+LocalDateTime dt = LocalDateTime.parse("2025-08-23T10:15:30");
+
+// To Date (legacy)
+Date date = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
+
+
+
+// 1️⃣2️⃣ Collection ↔ Array
+List<String> list = Arrays.asList("A", "B", "C");
+String[] arr = list.toArray(new String[0]);
+List<String> list2 = Arrays.asList(arr);
